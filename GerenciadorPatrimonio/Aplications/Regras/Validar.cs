@@ -16,7 +16,7 @@ namespace GerenciadorPatrimonio.Aplications.Regras
         {
             if (string.IsNullOrWhiteSpace(estado))
             {
-                throw new DomainException("Estado é obrigatório.");
+                throw new DomainException("Estado é obrigatório!");
             }
         }
         public static void ValidarLogradouro(string logradouro)
@@ -44,8 +44,17 @@ namespace GerenciadorPatrimonio.Aplications.Regras
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new DomainException("Email é obrigatório");
+                throw new DomainException("Email é obrigatório!");
             }
         }
+        public static void ValidarSenha (string senha)
+        {
+            if (string.IsNullOrWhiteSpace(senha))
+            {
+                throw new DomainException("Senha é obrigatória!");
+
+            }
+        }
+
     }
 }

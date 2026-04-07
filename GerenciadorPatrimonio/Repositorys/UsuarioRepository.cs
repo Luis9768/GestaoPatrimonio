@@ -1,5 +1,7 @@
 ﻿using GerenciadorPatrimonio.Contexts;
 using GerenciadorPatrimonio.Domains;
+using GerenciadorPatrimonio.DTOs.UsuarioDTO;
+using Microsoft.EntityFrameworkCore;
 
 namespace GerenciadorPatrimonio.Repositorys
 {
@@ -55,13 +57,69 @@ namespace GerenciadorPatrimonio.Repositorys
         public void Atualizar(Usuario usuario)
         {
             var usuarioBanco = _context.Usuario.Find(usuario.UsuarioID)!;
+            if (usuarioBanco == null)
+            {
+                return;
+            }
+            usuarioBanco.NIF = usuario.NIF;
+            usuarioBanco.Email = usuario.Email;
+            usuarioBanco.Nome = usuario.Nome;
+            usuarioBanco.CPF = usuario.CPF;
+            usuarioBanco.RG = usuario.RG;
+            usuarioBanco.CarteiraTrabalho = usuario.CarteiraTrabalho;
+            usuarioBanco.EnderecoID = usuario.EnderecoID;
+            usuarioBanco.CargoID = usuario.CargoID;
+            usuarioBanco.TipoUsuarioID = usuario.TipoUsuarioID;
+
+            _context.SaveChanges();
+        }
+        public void AtualizarStatus(Usuario usuario)
+        {
+            if(usuario == null)
+            {
+                return;
+            }
+            Usuario usuarioBanco = _context.Usuario.Find(usuario.UsuarioID)!;
+
+            if(usuarioBanco == null)
+            {
+                return; 
+            }
+
+            usuarioBanco.Ativo = usuario.Ativo;
+            _context.SaveChanges();
+        }
+        public Usuario ObterPorNIFComTipoUsuario(string nif)
+        {
+            return _context.Usuario.Include(u => u.TipoUsuario).FirstOrDefault(u => u.NIF == nif)!;
+        }
+        public void AtualizarSenha(Usuario usuario)
+        {
+            if(usuario == null)
+            {
+                return;
+            }
+            Usuario usuarioBanco = _context.Usuario.Find(usuario.UsuarioID)!;
             if(usuarioBanco == null)
             {
                 return;
             }
-
+            usuarioBanco.Senha = usuario.Senha;
+            _context.SaveChanges();
         }
-
-
+        public void AtualizarPrimeiroAcesso(Usuario usuario)
+        {
+            if (usuario == null)
+            {
+                return;
+            }
+            Usuario usuarioBanco = _context.Usuario.Find(usuario.UsuarioID)!;
+            if (usuarioBanco == null)
+            {
+                return;
+            }
+            usuarioBanco.PrimeiroAcesso = usuario.PrimeiroAcesso;
+            _context.SaveChanges();
+        }
     }
 }

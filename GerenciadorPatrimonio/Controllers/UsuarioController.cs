@@ -1,6 +1,7 @@
 ﻿using GerenciadorPatrimonio.Aplications.Services;
 using GerenciadorPatrimonio.DTOs.UsuarioDTO;
 using GerenciadorPatrimonio.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,6 +46,33 @@ namespace GerenciadorPatrimonio.Controllers
             catch (DomainException ex)
             {
                 return NotFound(ex.Message);
+            }
+        }
+        [HttpPut("{id}")]
+        public ActionResult<CriarUsuarioDTO> Atualizar(Guid id, CriarUsuarioDTO dto)
+        {
+            try
+            {
+                _service.Atualizar(id,dto);
+                return Ok(dto);
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Authorize]
+        [HttpPatch("{id}/status")]
+        public ActionResult AtualizarStatus(Guid id, AtualizarStatusUsuarioDTO dto)
+        {
+            try
+            {
+                _service.AtualizarStatus(id, dto);
+                return NoContent();
+            }
+            catch (DomainException ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }

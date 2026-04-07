@@ -11,6 +11,10 @@ namespace GerenciadorPatrimonio.Interfaces
         bool CargoExiste(Guid cargoID);
         bool TipoUsuarioExiste(Guid usuarioID);
         void Adicionar(Usuario usuario);
-        void Atualizar(Guid id, Usuario usuario);
+        void Atualizar(Usuario usuario);
+        void AtualizarStaus(Usuario usuario);
+        Usuario? ObterPorNIFComTipoUsuario(string nif);
+        void AtualizarSenha(Usuario usuario);
+        void AtualizarPrimeiroAcesso(Usuario usuario);
     }
 }
