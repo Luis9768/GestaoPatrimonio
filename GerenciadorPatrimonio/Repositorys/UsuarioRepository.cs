@@ -1,13 +1,15 @@
 ﻿using GerenciadorPatrimonio.Contexts;
 using GerenciadorPatrimonio.Domains;
 using GerenciadorPatrimonio.DTOs.UsuarioDTO;
+using GerenciadorPatrimonio.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace GerenciadorPatrimonio.Repositorys
 {
-    public class UsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository
     {
         private readonly GestaoPatrimoniosContext _context;
+
         public UsuarioRepository(GestaoPatrimoniosContext context)
         {
             _context = context;
@@ -15,109 +17,134 @@ namespace GerenciadorPatrimonio.Repositorys
 
         public List<Usuario> Listar()
         {
-            return _context.Usuario.OrderBy(c => c.Nome).ToList();
+            return _context.Usuario.OrderBy(usuario => usuario.Nome).ToList();
         }
-        public Usuario BuscarPorID(Guid id)
+
+        public Usuario BuscarPorId(Guid usuarioId)
         {
-            return _context.Usuario.Find(id)!;
+            return _context.Usuario.Find(usuarioId);
         }
-        public Usuario BuscarDuplicado(string nif, string cpf, string email, Guid? usuarioID = null)
+
+        public Usuario BuscarDuplicado(string nif, string cpf, string email, Guid? usuarioId = null)
         {
             var consulta = _context.Usuario.AsQueryable();
-            if (usuarioID.HasValue)
+
+            if (usuarioId.HasValue)
             {
-                consulta = consulta.Where(u => u.UsuarioID != usuarioID.Value);
+                consulta = consulta.Where(usuario => usuario.UsuarioID != usuarioId.Value);
             }
 
-            return consulta.FirstOrDefault(u =>
-            u.NIF == nif ||
-            u.CPF == cpf ||
-            u.Email.ToLower() == email.ToLower()
-            )!;
+            return consulta.FirstOrDefault(usuario =>
+                usuario.NIF == nif ||
+                usuario.CPF == cpf ||
+                usuario.Email.ToLower() == email.ToLower()
+                );
         }
 
-        public bool EnderecoExiste(Guid id)
+        public bool EnderecoExiste(Guid enderecoId)
         {
-            return _context.Endereco.Any(e => e.EnderecoID == id);
-        }
-        public bool CargoExiste(Guid cargoID)
-        {
-            return _context.Cargo.Any(c => c.CargoID == cargoID);
+            return _context.Endereco.Any(endereco => endereco.EnderecoID == enderecoId);
         }
 
-        public bool TipoUsuarioExiste(Guid tipoUsuarioID)
+        public bool CargoExiste(Guid cargoId)
         {
-            return _context.TipoUsuario.Any(t => t.TipoUsuarioID == tipoUsuarioID);
+            return _context.Cargo.Any(cargo => cargo.CargoID == cargoId);
         }
+
+        public bool TipoUsuarioExiste(Guid tipoUsuarioId)
+        {
+            return _context.TipoUsuario.Any(tipoUsuario => tipoUsuario.TipoUsuarioID == tipoUsuarioId);
+        }
+
         public void Adicionar(Usuario usuario)
         {
             _context.Usuario.Add(usuario);
             _context.SaveChanges();
         }
+
         public void Atualizar(Usuario usuario)
         {
-            var usuarioBanco = _context.Usuario.Find(usuario.UsuarioID)!;
+            if (usuario == null)
+            {
+                return;
+            }
+
+            Usuario usuarioBanco = _context.Usuario.Find(usuario.UsuarioID);
+
             if (usuarioBanco == null)
             {
                 return;
             }
+
             usuarioBanco.NIF = usuario.NIF;
-            usuarioBanco.Email = usuario.Email;
             usuarioBanco.Nome = usuario.Nome;
-            usuarioBanco.CPF = usuario.CPF;
             usuarioBanco.RG = usuario.RG;
+            usuarioBanco.CPF = usuario.CPF;
             usuarioBanco.CarteiraTrabalho = usuario.CarteiraTrabalho;
+            usuarioBanco.Email = usuario.Email;
             usuarioBanco.EnderecoID = usuario.EnderecoID;
             usuarioBanco.CargoID = usuario.CargoID;
             usuarioBanco.TipoUsuarioID = usuario.TipoUsuarioID;
 
             _context.SaveChanges();
         }
+
         public void AtualizarStatus(Usuario usuario)
         {
-            if(usuario == null)
+            if (usuario == null)
             {
                 return;
             }
-            Usuario usuarioBanco = _context.Usuario.Find(usuario.UsuarioID)!;
 
-            if(usuarioBanco == null)
+            Usuario usuarioBanco = _context.Usuario.Find(usuario.UsuarioID);
+
+            if (usuarioBanco == null)
             {
-                return; 
+                return;
             }
 
             usuarioBanco.Ativo = usuario.Ativo;
             _context.SaveChanges();
         }
+
         public Usuario ObterPorNIFComTipoUsuario(string nif)
         {
-            return _context.Usuario.Include(u => u.TipoUsuario).FirstOrDefault(u => u.NIF == nif)!;
+            return _context.Usuario.Include(usuario => usuario.TipoUsuario)
+                .FirstOrDefault(usuario => usuario.NIF == nif);
         }
+
         public void AtualizarSenha(Usuario usuario)
         {
-            if(usuario == null)
+            if (usuario == null)
             {
                 return;
             }
-            Usuario usuarioBanco = _context.Usuario.Find(usuario.UsuarioID)!;
-            if(usuarioBanco == null)
+
+            Usuario usuarioBanco = _context.Usuario.Find(usuario.UsuarioID);
+
+            if (usuarioBanco == null)
             {
                 return;
             }
+
             usuarioBanco.Senha = usuario.Senha;
             _context.SaveChanges();
         }
+
         public void AtualizarPrimeiroAcesso(Usuario usuario)
         {
             if (usuario == null)
             {
                 return;
             }
-            Usuario usuarioBanco = _context.Usuario.Find(usuario.UsuarioID)!;
+
+            Usuario usuarioBanco = _context.Usuario.Find(usuario.UsuarioID);
+
             if (usuarioBanco == null)
             {
                 return;
             }
+
             usuarioBanco.PrimeiroAcesso = usuario.PrimeiroAcesso;
             _context.SaveChanges();
         }

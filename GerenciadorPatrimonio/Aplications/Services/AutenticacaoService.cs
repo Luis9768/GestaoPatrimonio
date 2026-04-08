@@ -51,7 +51,7 @@ namespace GerenciadorPatrimonio.Aplications.Services
             Validar.ValidarSenha(dto.SenhaAtual);
             Validar.ValidarSenha(dto.NovaSenha);
 
-            Usuario usuario = _repository.BuscarPorID(usuarioID)!;
+            Usuario usuario = _repository.BuscarPorId(usuarioID)!;
             if(usuario == null)
             {
                 throw new DomainException("Usuário não encontrado.");

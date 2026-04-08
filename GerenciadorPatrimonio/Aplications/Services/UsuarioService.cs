@@ -38,7 +38,7 @@ namespace GerenciadorPatrimonio.Aplications.Services
         }
         public ListarUsuarioDTO BuscarPorID(Guid usuarioID)
         {
-            Usuario usuario = _repository.BuscarPorID(usuarioID)!;
+            Usuario usuario = _repository.BuscarPorId(usuarioID)!;
             if (usuario == null)
             {
                 throw new DomainException("Usuário não encontrado!");
@@ -118,7 +118,7 @@ namespace GerenciadorPatrimonio.Aplications.Services
             Validar.ValidarCPF(dto.CPF);
             Validar.ValidarEmail(dto.Email);
 
-            Usuario usuarioBanco = _repository.BuscarPorID(usuarioID)!;
+            Usuario usuarioBanco = _repository.BuscarPorId(usuarioID)!;
             if (usuarioBanco != null)
             {
                 throw new DomainException("Usuário não encontrado.");
@@ -168,13 +168,13 @@ namespace GerenciadorPatrimonio.Aplications.Services
         }
         public void AtualizarStatus(Guid usuarioID, AtualizarStatusUsuarioDTO dto)
         {
-            Usuario usuarioBanco = _repository.BuscarPorID(usuarioID)!;
+            Usuario usuarioBanco = _repository.BuscarPorId(usuarioID)!;
             if(usuarioBanco == null)
             {
                 throw new DomainException("Usuário não encontrado.");
             }
             usuarioBanco.Ativo = dto.Ativo;
-            _repository.AtualizarStaus(usuarioBanco);
+            _repository.AtualizarStatus(usuarioBanco);
         }
 
     }
