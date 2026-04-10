@@ -2,5 +2,6 @@
 {
     public class ResponderSolicitacaoTransferenciaDTO
     {
+        public bool Aprovado { get; set; }
     }
 }
