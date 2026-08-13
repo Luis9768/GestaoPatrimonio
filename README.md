@@ -30,8 +30,3 @@ Siga as instruções abaixo para rodar o ambiente de desenvolvimento em sua máq
 - [SQL Server](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads) instalado.
 - [SSMS](https://learn.microsoft.com/pt-br/sql/ssms/download-sql-server-management-studio-ssms) para gerenciamento do banco.
 
-### Passo a Passo
-
-1. Clone este repositório:
-   ```bash
-   git clone [https://github.com/Luis9768/GestaoPatrimonio.git](https://github.com/Luis9768/GestaoPatrimonio.git)
