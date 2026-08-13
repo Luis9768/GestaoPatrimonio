@@ -1,40 +1,34 @@
-# 🏢 Sistema de Gestão de Patrimônios 
+# 🏢 API - Sistema de Gestão de Patrimônios
 
-> Projeto desenvolvido sob medida para a gestão e rastreamento de ativos e equipamentos do SENAI.
+> API RESTful robusta desenvolvida para o gerenciamento, rastreamento e controle de ativos e equipamentos.
 
 ## 🚀 Visão Geral
 
-O **Sistema de Gestão de Patrimônios** é uma aplicação focada em modernizar e otimizar o controle físico e digital dos equipamentos institucionais. Criado para resolver desafios reais de organização do SENAI, o sistema permite o cadastro, rastreamento, atualização e baixa de patrimônios de forma centralizada e segura.
+Este repositório contém exclusivamente o **Back-end (API)** do Sistema de Gestão de Patrimônios, um projeto criado para resolver desafios reais de organização institucional. A arquitetura foi desenhada com foco estrito em **boas práticas de engenharia de software**, garantindo um código limpo, escalável e de fácil manutenção para integração com interfaces Front-end.
 
-## ✨ Funcionalidades
+## ✨ Diferenciais e Arquitetura
 
-- **Cadastro de Ativos:** Inserção de novos equipamentos com detalhes técnicos, número de série e localização.
-- **Rastreamento e Histórico:** Acompanhamento da movimentação de equipamentos entre diferentes setores ou laboratórios.
-- **Painel de Controle (Dashboard):** Visão geral da quantidade de itens ativos, em manutenção ou depreciados.
-- **Controle de Acesso:** Níveis de permissão (Administrador/Usuário) para garantir a segurança dos dados patrimoniais.
+O projeto foi construído pensando além do básico, implementando conceitos avançados de mercado:
+
+- **Identificadores Únicos Globais (GUID):** Utilização de `Guid` para as chaves primárias das entidades. Isso garante maior segurança contra ataques de enumeração, unicidade distribuída e melhor performance na integração de sistemas complexos.
+- **Requisitos Não Funcionais (RNF):** Arquitetura projetada levando em consideração segurança de dados, alta disponibilidade, tempo de resposta otimizado e manutenibilidade estrutural.
+- **Boas Práticas de Engenharia:** Aplicação de Clean Code, baixo acoplamento e alta coesão, seguindo os padrões de projeto consolidados no ecossistema de desenvolvimento.
+- **Gestão Eficiente de Dados:** Modelagem relacional e estruturação do banco de dados otimizadas através do SQL Server Management Studio (SSMS).
 
 ## 🛠️ Tecnologias Utilizadas
 
-**Front-end:**
-- [React / HTML / CSS / JavaScript]
-- [Outra biblioteca de interface, ex: Tailwind CSS, Material UI]
+- **Linguagem:** C#
+- **Banco de Dados:** SQL Server (Gerenciado via SSMS)
+- **Arquitetura:** API REST
 
-**Back-end:**
-- [Node.js / C# / TypeScript]
-- [Framework, ex: Express, Spring Boot, .NET]
+## ⚙️ Como Executar a API
 
-**Banco de Dados & Infraestrutura:**
-- [MySQL / SQL Server / PostgreSQL]
-- [AWS / Docker / Linux]
-
-## ⚙️ Como Executar o Projeto
-
-Siga as instruções abaixo para rodar o projeto em sua máquina local.
+Siga as instruções abaixo para rodar o ambiente de desenvolvimento em sua máquina local.
 
 ### Pré-requisitos
-- [Node.js](https://nodejs.org/) (ou a linguagem que você usou) instalado
-- [Git](https://git-scm.com/)
-- Um banco de dados [Nome do Banco] rodando localmente ou em nuvem.
+- [.NET SDK](https://dotnet.microsoft.com/download) instalado.
+- [SQL Server](https://www.microsoft.com/pt-br/sql-server/sql-server-downloads) instalado.
+- [SSMS](https://learn.microsoft.com/pt-br/sql/ssms/download-sql-server-management-studio-ssms) para gerenciamento do banco.
 
 ### Passo a Passo
 
